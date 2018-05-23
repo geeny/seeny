@@ -1,0 +1,11 @@
+[{
+    "name" : "chromedriver",
+    "path" : "webdriver/chromedriver/",
+    "propertyName" : "webdriver.chrome.driver"
+  },
+  {
+    "name" : "headless",
+    "path" : null,
+    "propertyName" : null
+  }
+]

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Class-Path: websocket-api-9.4.3.v20170317.jar selenium-safari-driver-3
+ .4.0.jar httpcore-4.4.6.jar jetty-client-9.4.3.v20170317.jar selenium
+ -opera-driver-3.4.0.jar neko-htmlunit-2.25.jar commons-exec-1.3.jar c
+ ommons-lang3-3.5.jar commons-codec-1.10.jar jetty-util-9.4.3.v2017031
+ 7.jar cssparser-0.9.22.jar selenium-edge-driver-3.4.0.jar htmlunit-co
+ re-js-2.26.jar phantomjsdriver-1.4.0.jar websocket-common-9.4.3.v2017
+ 0317.jar htmlunit-driver-2.26.jar gson-2.8.0.jar java-hamcrest-2.0.0.
+ 0.jar httpmime-4.5.3.jar jna-4.1.0.jar selenium-java-3.4.0.jar xml-ap
+ is-1.4.01.jar selenium-remote-driver-3.4.0.jar xalan-2.7.2.jar seleni
+ um-firefox-driver-3.4.0.jar selenium-api-3.4.0.jar selenium-chrome-dr
+ iver-3.4.0.jar sac-1.3.jar junit-4.12.jar jetty-http-9.4.3.v20170317.
+ jar selenium-ie-driver-3.4.0.jar jna-platform-4.1.0.jar commons-io-2.
+ 5.jar cglib-nodep-3.2.4.jar hamcrest-core-1.3.jar jetty-io-9.4.3.v201
+ 70317.jar htmlunit-2.26.jar guava-21.0.jar commons-logging-1.2.jar xe
+ rcesImpl-2.11.0.jar httpclient-4.5.3.jar selenium-support-3.4.0.jar j
+ avax.servlet-api-3.1.0.jar websocket-client-9.4.3.v20170317.jar seria
+ lizer-2.7.2.jar
+Main-Class: io.geeny.seeny.SeleniumMain
+

@@ -1,0 +1,101 @@
+Examples
+
+//Script outline
+{
+  "name": "WebPage Name",
+  "url": "URL",
+  "zephyrEnabled" : boolean,
+  "testCycleId" : int,
+  "close": boolean,
+  "script": [
+    {}
+  ]
+}
+//
+
+//Base
+{
+  "actionId" : int,
+  "actionType" : "condition,click,write,delete,navigate,linkCheck",
+  "selectorType" : "id,css,xpath,comp",
+  "dataComponentName" : "", //required if selectorType is 'comp'
+  "selectorExpression" : "",
+  "child" : {
+    "selectorType" : string,
+    "selectorExpression" : string,
+    "bool" : boolean,
+    "next" : string
+  },
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+
+//Condition
+{
+  "actionId" : int,
+  "actionType" : "condition",
+  "selectorType" : "id,css,xpath,comp",
+  "dataComponentName" : "", //required if selectorType is 'comp'
+  "selectorExpression" : "",
+  "bool" : boolean,
+  "task" : "enabled,compare,displayed,empty,selected",
+  "value" : "value to use",
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+//
+
+//Clickable
+{
+  "actionId" : int,
+  "actionType" : "click",
+  "selectorType" : "id,css,xpath,comp",
+  "dataComponentName" : "", //required if selectorType is 'comp'
+  "selectorExpression" : "",
+  "redirect" : "",
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+//
+
+//Input
+{
+  "actionId" : int,
+  "actionType" : "write,delete",
+  "selectorType" : "id,css,xpath,comp",
+  "dataComponentName" : "", //required if selectorType is 'comp'
+  "selectorExpression" : "",
+  "content" : "",
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+//
+
+//Navigate
+{
+  "actionId" : int,
+  "actionType" : "navigate",
+  "selectorType" : "id,css,xpath,comp",
+  "dataComponentName" : "", //required if selectorType is 'comp'
+  "selectorExpression" : "",
+  "navigateType" : "refresh,back,forward,goto",
+  "expected" : "URL",
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+//
+
+//LinkCheck
+{
+  "actionId" : int,
+  "actionType" : "linkCheck",
+  "waitBefore" : int,
+  "waitAfter" : int,
+  "description" : ""
+}
+//

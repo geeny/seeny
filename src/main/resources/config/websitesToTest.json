@@ -1,0 +1,8 @@
+[
+  {
+    "name" : "[insert name here]",
+    "driver" : "[insert driver name here]",
+    "retries" : 1,
+    "timeout" : 0
+  }
+]

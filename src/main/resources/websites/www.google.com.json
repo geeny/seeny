@@ -1,0 +1,30 @@
+{
+  "name": "Google",
+  "close": false,
+  "script": [
+    {
+      "actionId" : 1,
+      "actionType" : "navigate",
+      "navigateType" : "goto",
+      "expected" : "http://www.google.de",
+      "waitBefore" : 1000,
+      "waitAfter" : 1000,
+      "description" : "Webpage loading"
+    },
+    {
+      "actionId" : 2,
+      "actionType" : "write",
+      "selectorType" : "xpath",
+      "selectorExpression" : "//*[@id='lst-ib']",
+      "content" : "seeny selenium",
+      "description" : "enter keyword into input box"
+    },
+    {
+      "actionId" : 3,
+      "actionType" : "click",
+      "selectorType" : "xpath",
+      "selectorExpression" : "//*[@id='tsf']/div[2]/div[3]/center/input[1]",
+      "description" : "click the google search button"
+    }
+  ]
+}
