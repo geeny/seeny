@@ -48,12 +48,12 @@ In order to execute a specific script the scriptname has to be set as an environ
 e.g.
 on Linux/MacOS
 ```bash
-SCRIPTNAME=community.geeny.io docker-compose up
+SCRIPTNAME=www.google.com docker-compose up
 ```
 
 on Windows
 ```bash
-set SCRIPTNAME=community.geeny.io && docker-compose up
+set SCRIPTNAME=www.google.com && docker-compose up
 ```
 
 The script name needs to refer to an existing script in either of these folders
@@ -74,33 +74,32 @@ _CONFIGURATION_
 
 ```json
 [{
-"name" : "chromedriver",
-"path" : "webdriver/chromedriver/",
-"propertyName" : "webdriver.chrome.driver"
-},
-{
-"name" : "headless",
-"path" : null,
-"propertyName" : null
-}
+		"name": "chromedriver",
+		"path": "webdriver/chromedriver/",
+		"propertyName": "webdriver.chrome.driver"
+	},
+	{
+		"name": "headless",
+		"path": null,
+		"propertyName": null
+	}
 ]
 ```
 - websitesToTest.json
 
 ```json
-[
-{
-"name" : "cmnty.geeny.io",
-"driver" : "chromedriver",
-"retries" : 3,
-"timeout" : 0
-},
-{
-"name" : "geeny.io",
-"driver" : "chromedriver",
-"retries" : 2,
-"timeout" : 0
-}
+[{
+		"name": "cmnty.geeny.io",
+		"driver": "chromedriver",
+		"retries": 3,
+		"timeout": 0
+	},
+	{
+		"name": "geeny.io",
+		"driver": "chromedriver",
+		"retries": 2,
+		"timeout": 0
+	}
 ]
 ```
 
@@ -157,21 +156,20 @@ _Structure:_
 
 ```json
 {
-"name" : "Geeny IO",
-"close" : true,
-"description" : "Script to test the Geeny.io website",
-"zap-proxy" : {
-  "enabled" : true,
-  "url" : "localhost",
-  "port" : 1337
-},
-"script" : [
-{
-"actionId" : 1,
-"actionType" : "click",
-"actionTarget" : "link",
-"id" : "header_register_link"
-}]
+	"name": "Geeny IO",
+	"close": true,
+	"description": "Script to test the Geeny.io website",
+	"zap-proxy": {
+		"enabled": true,
+		"url": "localhost",
+		"port": 1337
+	},
+	"script": [{
+		"actionId": 1,
+		"actionType": "click",
+		"actionTarget": "link",
+		"id": "header_register_link"
+	}]
 }
 ```
 
@@ -188,19 +186,19 @@ _Structure_
 
 ```json
 {
-"actionId" : 3,
-"actionType" : "condition",
-"selectorType" : "css",
-"dataComponentName" : "TextInput.firstname",
-"selectorExpression" : "EmailField",
-"child" : {
-...
-},
-"waitBefore" : 3000,
-"waitAfter" : 3000,
-"required" : true,
-"memory" : "memoryName",
-"description" : "The Error message"
+	"actionId": 3,
+	"actionType": "condition",
+	"selectorType": "css",
+	"dataComponentName": "TextInput.firstname",
+	"selectorExpression": "EmailField",
+	"child": {
+		
+	},
+	"waitBefore": 3000,
+	"waitAfter": 3000,
+	"required": true,
+	"memory": "memoryName",
+	"description": "The Error message"
 }
 ```
 
@@ -226,14 +224,14 @@ _Structure:_
 
 ```json
 {
-"actionId" : 3,
-"actionType" : "condition",
-"selectorType" : "id",
-"selectorExpression" : "errormsg_0_Email",
-"bool" : true,
-"task" : "compare",
-"value" : "Sorry, Google doesn't recognize that email. Create an account using that address?",
-"description" : "The Error message"
+	"actionId": 3,
+	"actionType": "condition",
+	"selectorType": "id",
+	"selectorExpression": "errormsg_0_Email",
+	"bool": true,
+	"task": "compare",
+	"value": "Sorry, Google doesn't recognize that email. Create an account using that address?",
+	"description": "The Error message"
 }
 
 ```
@@ -247,12 +245,12 @@ The Structure of the condition script element contains 3 unique elements for the
 
 ```json
 {
-"actionId" : 2,
-"actionType" : "click",
-"selectorType" : "id",
-"selectorExpression" : "next",
-"redirect" : null,
-"description" : "Button to go forward"
+	"actionId": 2,
+	"actionType": "click",
+	"selectorType": "id",
+	"selectorExpression": "next",
+	"redirect": null,
+	"description": "Button to go forward"
 }
 
 ```
@@ -266,12 +264,12 @@ The structure of the Clickable script element contains one unique element for th
 _Structure:_
 ```json
 {
-"actionId" : 5,
-"actionType" : "write | delete",
-"selectorType" : "id",
-"selectorExpression" : "Email",
-"content" : "mobiletesting@geeny.io",
-"description" : "Input field for the email"
+	"actionId": 5,
+	"actionType": "write | delete",
+	"selectorType": "id",
+	"selectorExpression": "Email",
+	"content": "mobiletesting@geeny.io",
+	"description": "Input field for the email"
 }
 ```
 
@@ -284,12 +282,12 @@ _Structure_
 
 ```json
 {
-"actionId" : 5,
-"actionType" : "navigate",
-"navigateType" : "goto",
-"tabId" : 0,
-"expected" : "http://www.google.de",
-"description" : "Input field for the email"
+	"actionId": 5,
+	"actionType": "navigate",
+	"navigateType": "goto",
+	"tabId": 0,
+	"expected": "http://www.google.de",
+	"description": "Input field for the email"
 }
 ```
 
@@ -304,18 +302,18 @@ _Structure_
 
 ```json
 {
-"actionId" : 5,
-"actionType" : "linkCheck",
-"domain" : "geeny.io",
-"subdomain" : "docs",
-"excludes" : [
-  "sdk/",
-  "api/"
-],
-"https": true,
-"depth" : 3,
-"recursive" : true,
-"description" : "Check website for broken links"
+	"actionId": 5,
+	"actionType": "linkCheck",
+	"domain": "geeny.io",
+	"subdomain": "docs",
+	"excludes": [
+		"sdk/",
+		"api/"
+	],
+	"https": true,
+	"depth": 3,
+	"recursive": true,
+	"description": "Check website for broken links"
 }
 ```
 
@@ -333,27 +331,26 @@ _Structure_
 
 ```json
 {
-"actionId" : 9,
-"actionType" : "extract",
-"selectorType" : "xpath",
-"selectorExpression" : "//*[@class='DeployCLIInstructions__snippet']/p[2]",
-"memory" : "second_command",
-"items" : [
-{
-"key" : "registry_path",
-"task" : "FIND",
-"regexp" : "\"(.*)\"",
-"description" : "registry path"
-},
-{
-"key" : "formula_id",
-"task" : "FIND",
-"regexp" : "\".*\/(.*)\"",
-"description" : "formula id"
-}
-],
-"waitAfter" : 2000,
-"description" : "Second Command for using the docker registry"
+	"actionId": 9,
+	"actionType": "extract",
+	"selectorType": "xpath",
+	"selectorExpression": "//*[@class='DeployCLIInstructions__snippet']/p[2]",
+	"memory": "second_command",
+	"items": [{
+			"key": "registry_path",
+			"task": "FIND",
+			"regexp": "\"(.*)\"",
+			"description": "registry path"
+		},
+		{
+			"key": "formula_id",
+			"task": "FIND",
+			"regexp": "\".*\/(.*)\"",
+			"description": "formula id"
+		}
+	],
+	"waitAfter": 2000,
+	"description": "Second Command for using the docker registry"
 }
 ```
 
@@ -368,11 +365,11 @@ _Structure_
 
 ```json
 {
-"key" : "registry_path",
-"task" : "FIND",
-"value" : "Success",
-"regexp" : "\"(.*)\"",
-"description" : "registry path"
+	"key": "registry_path",
+	"task": "FIND",
+	"value": "Success",
+	"regexp": "\"(.*)\"",
+	"description": "registry path"
 }
 ```
 the item script element is used as a sub element of the extract element and is used for making it possible to extract multiple information from one element of a website
@@ -437,10 +434,9 @@ __website__
 
 ```json
 {
-"name" : "<website name>",
-"close" : true,
-"script" : [
-]
+	"name": "<website name>",
+	"close": true,
+	"script": []
 }
 ```
 
@@ -450,15 +446,15 @@ __input__
 
 ```json
 {
-"actionId" : 0,
-"actionType" : "delete write",
-"selectorType" : "id css comp",
-"dataComponentName" : "",
-"selectorExpression" : "",
-"content" : "",
-"waitBefore" : 0,
-"waitAfter" : 0,
-"description" : ""
+	"actionId": 0,
+	"actionType": "delete write",
+	"selectorType": "id css comp",
+	"dataComponentName": "",
+	"selectorExpression": "",
+	"content": "",
+	"waitBefore": 0,
+	"waitAfter": 0,
+	"description": ""
 }
 ```
 
@@ -467,15 +463,15 @@ __click__
 
 ```json
 {
-"actionId" : 0,
-"actionType" : "click",
-"selectorType" : "css id comp",
-"dataComponentName" : "",
-"selectorExpression" : "",
-"redirect" : "",
-"waitBefore" : 0,
-"waitAfter" : 0,
-"description" : ""
+	"actionId": 0,
+	"actionType": "click",
+	"selectorType": "css id comp",
+	"dataComponentName": "",
+	"selectorExpression": "",
+	"redirect": "",
+	"waitBefore": 0,
+	"waitAfter": 0,
+	"description": ""
 }
 ```
 
@@ -484,17 +480,17 @@ __condition__
 
 ```json
 {
-"actionId" : 0,
-"actionType" : "condition",
-"selectorType" : "css id comp",
-"dataComponentName" : "",
-"selectorExpression" : "",
-"bool" : true false,
-"task" : "enabled displayed empty selected compare",
-"value" : "",
-"waitBefore" : 0,
-"waitAfter" : 0,
-"description" : ""
+	"actionId": 0,
+	"actionType": "condition",
+	"selectorType": "css id comp",
+	"dataComponentName": "",
+	"selectorExpression": "",
+	"bool": true false,
+	"task": "enabled displayed empty selected compare",
+	"value": "",
+	"waitBefore": 0,
+	"waitAfter": 0,
+	"description": ""
 }
 ```
 
@@ -503,16 +499,16 @@ __navigate__
 
 ```json
 {
-"actionId" : 0,
-"actionType" : "navigate",
-"navigateType" : "refresh back forward goto switchTab closeTab",
-"tabId" : 0,
-"dataComponentName" : "",
-"selectorExpression" : "",
-"expected" : "",
-"waitBefore" : 0,
-"waitAfter" : 0,
-"description" : ""
+	"actionId": 0,
+	"actionType": "navigate",
+	"navigateType": "refresh back forward goto switchTab closeTab",
+	"tabId": 0,
+	"dataComponentName": "",
+	"selectorExpression": "",
+	"expected": "",
+	"waitBefore": 0,
+	"waitAfter": 0,
+	"description": ""
 }
 ```
 
@@ -521,9 +517,18 @@ __linkCheck__
 
 ```json
 {
-"actionId": 0,
-"actionType": "linkCheck",
-"description": "check all links from this page"
+	"actionId": 0,
+	"actionType": "linkCheck",
+	"domain": "",
+	"subdomain": "",
+	"excludes": [
+		"sdk/",
+		"api/"
+	],
+	"https": true false,
+	"depth": 0,
+	"recursive": true false,
+	"description": ""
 }
 ```
 
@@ -531,27 +536,26 @@ __extract__
 
 ```json
 {
-"actionId" : 9,
-"actionType" : "extract",
-"selectorType" : "xpath",
-"selector" : "//*[@class='DeployCLIInstructions__snippet']/p[2]",
-"memory" : "second_command",
-"items" : [
-{
-"key" : "registry_path",
-"task" : "FIND",
-"regexp" : "\"(.*)\"",
-"description" : "registry path"
-},
-{
-"key" : "formula_id",
-"task" : "FIND",
-"regexp" : "\".*\/(.*)\"",
-"description" : "formula id"
-}
-],
-"waitAfter" : 2000,
-"description" : "Second Command for using the docker registry"
+	"actionId": 9,
+	"actionType": "extract",
+	"selectorType": "xpath",
+	"selector": "//*[@class='DeployCLIInstructions__snippet']/p[2]",
+	"memory": "second_command",
+	"items": [{
+			"key": "registry_path",
+			"task": "FIND",
+			"regexp": "\"(.*)\"",
+			"description": "registry path"
+		},
+		{
+			"key": "formula_id",
+			"task": "FIND",
+			"regexp": "\".*\/(.*)\"",
+			"description": "formula id"
+		}
+	],
+	"waitAfter": 2000,
+	"description": "Second Command for using the docker registry"
 }
 ```
 
