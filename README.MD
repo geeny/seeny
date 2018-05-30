@@ -97,14 +97,14 @@ Example of how to execute Seeny manually using parameters:
 java -jar build/libs/shadow-1.0-all.jar -d chromedriver -w cmnty.geeny.io
 ```
 
-## Elements of Seeny
+## Script elements
 
-### `website.json`
+### Website element (main object)
 
-The main JSON object used by Seeny is `website.json`. You must name this file
-after the website to be tested (e.g., `geeny.io.json` for geeny.io).
+The main JSON object used by Seeny is `website.json`. You must name the test
+script file after the website to be tested (e.g., `geeny.io.json` for geeny.io).
 
-#### Structure
+**Schema:**
 
 ```json
 {
@@ -127,198 +127,219 @@ after the website to be tested (e.g., `geeny.io.json` for geeny.io).
 }
 ```
 
-The website object consists of five elements:
+**Properties:**
 
-1. `name`: The name of the webpage.
+1. `name`: The name of the site.
 2. `close`: Specifies if the window shall be closed after the test.
-3. `description`: A description of this test script.
+3. `description`: A description of the test script.
 4. `zap-proxy`: Configuration for redirecting the communication of Selenium
 through an [OWASP Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy/wiki/Introduction).
 5. `script`: An array of script elements for Seeny to execute to test the
 website.
 
-**Basic**
+### Basic
 
-_Structure_
+The basic script eleemnt is an abstract element and can not be addressed by
+itself, although it has attributes which every other script element can refer
+to.
 
-```json
-{
-	"actionId": 3,
-	"actionType": "condition",
-	"selectorType": "css",
-	"dataComponentName": "TextInput.firstname",
-	"selectorExpression": "EmailField",
-	"child": {
-		
-	},
-	"waitBefore": 3000,
-	"waitAfter": 3000,
-	"required": true,
-	"memory": "memoryName",
-	"description": "The Error message"
-}
-```
-
-This element is an abstract element and can not be addressed by itself. even tho, the Basic script element
-has attributes which every other script element can refer to
-
-1. _actionId_ : the action id, which defines which step in the script list this is
-2. _actionType_ : the type of action script element
-3. _selectorType_ : the selector type which shall be used to find the element
-4. _data-comp_ : value to be used for adressing the element via css selector
-5. _selector_ : value to be used for finding the web element
-6. _child_ : sub element which shall be found related to the parent object
-6. _waitBefore_ : value in milli seconds how long the script element has to wait before execute itself
-7. _waitAfter_ : value in milli seconds how long the script element has to wait after execute itself
-8. _required_ : boolean value if this step is required, if it fails, the test will be ended
-9. _memory_ : value to show if the value of this element should be saved for later
-8. _description_ : a description of the script element for the logs
-
-
-**Condition**
-
-_Structure:_
+**Schema:**
 
 ```json
 {
-	"actionId": 3,
-	"actionType": "condition",
-	"selectorType": "id",
-	"selectorExpression": "errormsg_0_Email",
-	"bool": true,
-	"task": "compare",
-	"value": "Sorry, Google doesn't recognize that email. Create an account using that address?",
-	"description": "The Error message"
+  "actionId": 3,
+  "actionType": "condition",
+  "selectorType": "css",
+  "dataComponentName": "TextInput.firstname",
+  "selectorExpression": "EmailField",
+  "child": {
+  	
+  },
+  "waitBefore": 3000,
+  "waitAfter": 3000,
+  "required": true,
+  "memory": "memoryName",
+  "description": "The Error message"
 }
-
 ```
-The Structure of the condition script element contains 3 unique elements for the Condition
-1. _bool_ : boolean value which represents the desired outcome
-2. _task_ : what shall be compared
-3. _value_ : if a string is going to be compared, the value contains the expected string
+
+**Properties:**
+
+1. `actionId`: Specifies the order of this script element in the list of scripts
+to execute.
+2. `actionType`: The type of action script element.
+3. `selectorType`: The selector type which shall be used to find the element.
+4. `dat-comp` : Value to be used for adressing the element via css selector.
+5. `selector`: Value to be used for finding the web element.
+6. `child`: Child element which shall be found in relation to the parent object.
+6. `waitBefore`: Time to wait (in milliseconds) before the script element executes itself.
+7. `waitAfter`: Time to wait (in milliseconds) after the script element executes itself.
+8. `required`: Boolean value if this step is required. If it fails, the test
+will end.
+9. `memory`: Specifies whether to store the value of this element for later.
+8. `description`: A description of the script element for the logs.
 
 
-**Clickable**
+### Condition
+
+**Structure:**
 
 ```json
 {
-	"actionId": 2,
-	"actionType": "click",
-	"selectorType": "id",
-	"selectorExpression": "next",
-	"redirect": null,
-	"description": "Button to go forward"
-}
-
-```
-
-The structure of the Clickable script element contains one unique element for the Clickable
-2. _redirect_ : what is the url the click shall redirect the test to?
-
-
-**Input**
-`
-_Structure:_
-```json
-{
-	"actionId": 5,
-	"actionType": "write | delete",
-	"selectorType": "id",
-	"selectorExpression": "Email",
-	"content": "mobiletesting@geeny.io",
-	"description": "Input field for the email"
+  "actionId": 3,
+  "actionType": "condition",
+  "selectorType": "id",
+  "selectorExpression": "errormsg_0_Email",
+  "bool": true,
+  "task": "compare",
+  "value": "Sorry, Google doesn't recognize that email. Create an account using that address?",
+  "description": "The Error message"
 }
 ```
 
-The structure of the Input script element contains one unique element for the Input field
-1. _content_ : what shall be written into/deleted from the input field/text area
+**Properties:**
 
-**Navigate**
+1. `bool`: Boolean value which represents the desired outcome.
+2. `task`: What shall be compared.
+3. `value`: If a string is going to be compared, then the script checks the
+value of the element for this string.
 
-_Structure_
+
+### Clickable
+
+**Schema:**
 
 ```json
 {
-	"actionId": 5,
-	"actionType": "navigate",
-	"navigateType": "goto",
-	"tabId": 0,
-	"expected": "http://www.google.de",
-	"description": "Input field for the email"
+  "actionId": 2,
+  "actionType": "click",
+  "selectorType": "id",
+  "selectorExpression": "next",
+  "redirect": null,
+  "description": "Button to go forward"
 }
 ```
 
-The structure of the Input script element contains 2 unique elements for the navigate logic
-1. _navigateType_ : the type of what navigation action shall be done
-2. _tabId_ : numerical number representing the tab in the browser (mostly 0)
-2. _expected_ : the website which is expected to appear after the execution
+**Properties:**
 
-**LinkCheck**
 
-_Structure_
+`redirect`: URL where the click should redirect the test.
+
+
+### Input
+
+**Schema:**
 
 ```json
 {
-	"actionId": 5,
-	"actionType": "linkCheck",
-	"domain": "geeny.io",
-	"subdomain": "docs",
-	"excludes": [
-		"sdk/",
-		"api/"
-	],
-	"https": true,
-	"depth": 3,
-	"recursive": true,
-	"description": "Check website for broken links"
+  "actionId": 5,
+  "actionType": "write | delete",
+  "selectorType": "id",
+  "selectorExpression": "Email",
+  "content": "mobiletesting@geeny.io",
+  "description": "Input field for the email"
 }
 ```
 
-LinkCheck script element can be called at any point during the script to verify links on the current page, it contains 6 specific elements
-1. _domain_ : the domain which will be checked
-2. _subdomain_ : the sub domain this linkcheck shall look for, if subdomain is set, the linkchecker will only check the healthiness of links with the specific subdomain
-3. _excludes_ : a list of paths which shall be ignored on checking links, whenever a link contains a string from this list, this link will be ignored
-4. _https_ : is https used?
-5. _depth_ : if recursive is enabled, how deep shall the link checker go?
-6. _recursive_ : shall the link checker go recursivly, through the websites he finds to check for other links?
+**Properties:**
 
-**Extract**
+`content`: Content to be written into or deleted from the element.
 
-_Structure_
+### Navigate
+
+**Schema:**
 
 ```json
 {
-	"actionId": 9,
-	"actionType": "extract",
-	"selectorType": "xpath",
-	"selectorExpression": "//*[@class='DeployCLIInstructions__snippet']/p[2]",
-	"memory": "second_command",
-	"items": [{
-			"key": "registry_path",
-			"task": "FIND",
-			"regexp": "\"(.*)\"",
-			"description": "registry path"
-		},
-		{
-			"key": "formula_id",
-			"task": "FIND",
-			"regexp": "\".*\/(.*)\"",
-			"description": "formula id"
-		}
-	],
-	"waitAfter": 2000,
-	"description": "Second Command for using the docker registry"
+  "actionId": 5,
+  "actionType": "navigate",
+  "navigateType": "goto",
+  "tabId": 0,
+  "expected": "http://www.google.de",
+  "description": "Input field for the email"
 }
 ```
 
-the extract element is used for extracting information out of an element from the website, to use those information later.
+**Properties:**
 
-The structure of the Extract element contains one unique element
-1. items - list of item script elements for extracting multiple parts as single from the overall found label
+1. `navigateType`: The type of navigation action to perform.
+2. `tabId`: Numerical number representing the tab in the browser.
+2. `expected`: The URL which is expected to load after execution.
 
-**Item**
+### LinkCheck
 
-_Structure_
+**Schema:**
+
+```json
+{
+  "actionId": 5,
+  "actionType": "linkCheck",
+  "domain": "geeny.io",
+  "subdomain": "docs",
+  "excludes": [
+  	"sdk/",
+  	"api/"
+  ],
+  "https": true,
+  "depth": 3,
+  "recursive": true,
+  "description": "Check website for broken links"
+}
+```
+**Properties:** 
+
+1. `domain`: The domain to be checked.
+2. `subdomain`: Specifies a subdomain to be checked. If a subdomain is set,
+then the linkchecker will only check links within the subdomain.
+3. `excludes`: A list of paths to ignore when checking links. Whenever a link
+contains a string from this list, it will be ignored.
+4. `https`: Specifies whether to use HTTPS.
+5. `depth`: If recursive is enabled, how deep shall the link checker go?
+6. `recursive`: Specifies whether the checker should check the links
+recursively.
+
+### Extract
+
+The extract element is used for extracting information out of an element on a
+webpage for later use.
+
+**Schema:**
+
+```json
+{
+  "actionId": 9,
+  "actionType": "extract",
+  "selectorType": "xpath",
+  "selectorExpression": "//*[@class='DeployCLIInstructions__snippet']/p[2]",
+  "memory": "second_command",
+  "items": [
+    {
+      "key": "registry_path",
+      "task": "FIND",
+      "regexp": "\"(.*)\"",
+      "description": "registry path"
+    },
+    {
+      "key": "formula_id",
+      "task": "FIND",
+      "regexp": "\".*/(.*)\"",
+      "description": "formula id"
+    }
+  ],
+  "waitAfter": 2000,
+  "description": "Second Command for using the docker registry"
+}
+```
+
+**Properties:**
+
+1. `items`: A list of item script elements for extracting multiple items.
+
+### Item
+
+the item script element is used as a sub element of the extract element and is used for making it possible to extract multiple information from one element of a website
+
+**Schema:**
 
 ```json
 {
@@ -329,9 +350,9 @@ _Structure_
 	"description": "registry path"
 }
 ```
-the item script element is used as a sub element of the extract element and is used for making it possible to extract multiple information from one element of a website
 
-The item element contains 4 unique elements
+**Properties:**
+
 1. key : key under which the found information will be stored in the memory queue
 2. task : identifier if the item needs to be found, or just compared
 3. value : content which will be checked for with the regular expression
