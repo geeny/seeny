@@ -1,184 +1,141 @@
-![Seeny - Json Script Interpreter for Selenium, powered by Geeny.io](seeny-logo.png)
-
-
-## Maintainer
-
-_Marco Bierbach_ [email: marco@bierbach.biz](mailto:marco@bierbach.biz) [github link](https://github.com/Gardosen)
-
-_Nils Balkow-Tychsen_ [github link](https://github.com/Nilsty)
-
-_Klemen Samsa_ [email: klemen.samsa@gmail.com](mailto:klemen.samsa@gmail.com)
-
+![Seeny - JSON Script Interpreter for Selenium, powered by Geeny.io](seeny-logo.png)
 
 ## Introduction
 
-This Document will describe how the Selenium Wrapper called Seeny,
-developed by the QA Team of Telefonica Next / Geeny.io, works and
-how it can be used
+Seeny is a wrapper for Selenium that makes it possible to write tests
+for websites by creating a list of script elements using JSON. It was developed
+by the QA team at Telefónica Next/Geeny.io to reduce the amount of time
+necessary to write test scripts for new websites. Seeny takes a JSON test script
+as a parameter and executes it in Selenium via
+Docker Compose.
 
-## Purpose
+## Requirements
 
-With the release of the Platform and also with a growing success,
-the websites which needs to be tested, will grow exponential.
-Writing Selenium Tests for these websites, with a team of 3 people
-would overload the team on some point, and reduce the time available
-for other tasks. Seeny is supposed to jump into this area as a script
-interpreter. With the help of Seeny, test scripts for new websites, can
-be written within under an hour.
+You must meet the following requirements to use Seeny:
 
-## Functionality
+- **Java** is installed on your system.
+- **Docker** is installed on your system.
+- Your **Java path** is set correctly.
+- The **jar file** of this project has been downloaded.
 
-Seeny makes it possible, to write selenium
-tests in json. by creating a list of script elements, a user can let Seeny
-test any website, which is supposed to be tested. via parameters, it can
-be decided which driver is going to be used, which website shall be tested
-and also how often the website should be tested in a row.
+## Running Seeny
 
-## Setup
+### Run scripts with Docker
 
-### Requirements
-to be able to execute the test, the following requirements have to be meet:
-- java is installed on the system
-- java path is set correctly
-- jar file of this project has been downloaded
+The easiest method is to run Seeny test scripts using Docker. You must set the
+scriptname as an environment variable. The script name must refer to an existing
+script in either the `src/main/resources/websites` or `<path to the jar
+file>/websites`  (created during build time) directory. You can access this
+directory using the Docker volume mapped to `/scripts`.
 
-### Execute scripts with Docker
+Example on **Linux/Mac OS:**
 
-In order to execute a specific script the scriptname has to be set as an environment variable.
-e.g.
-on Linux/MacOS
 ```bash
 SCRIPTNAME=www.google.com docker-compose up
 ```
 
-on Windows
+On **Windows:**
+
 ```bash
 set SCRIPTNAME=www.google.com && docker-compose up
 ```
 
-The script name needs to refer to an existing script in either of these folders
-src/main/resources/websites or <path to the jar file>/websites (created during build time) This folder can be accessed via the docker volume mapped to /scripts
+### Configure/run Seeny manually
 
-### How to start seeny manually
+There are two methods for configuring and running Seeny manually:
 
-seeny can be started in 2 ways.
+#### Local folder method
 
-**local folder method**
+When running a test script, Seeny will search the following directories for the
+test script (in this order):
 
-seeny comes with some local folders. if these folders exists, seeny will priorize the files inside these folders if no parameters exists. these folders can contain config files and test scripts. if one file is not existing inside of the folders, even tho the local folders are beeing used, seeny will check for these files in the resouces folder insid itself
+1. `/config`: This folder contains files that specify which websites to test (`websitesToTest.json`)
+and which drivers are available (`availableDrivers.json`).
+2. `/websites`: Store all of your JSON test scripts in this folder.
 
-_CONFIGURATION_
+If a file cannot be found in these folders, Seeny will check the `/resources`
+folder.
 
-1. config - this folder contains files which tell seeny which websites to test and what drivers are available by the files:
-- availableDrivers.json
+**Execution**
 
-```json
-[{
-		"name": "chromedriver",
-		"path": "webdriver/chromedriver/",
-		"propertyName": "webdriver.chrome.driver"
-	},
-	{
-		"name": "headless",
-		"path": null,
-		"propertyName": null
-	}
-]
-```
-- websitesToTest.json
+Running Seeny using the local folder method is fairly easy:
 
-```json
-[{
-		"name": "cmnty.geeny.io",
-		"driver": "chromedriver",
-		"retries": 3,
-		"timeout": 0
-	},
-	{
-		"name": "geeny.io",
-		"driver": "chromedriver",
-		"retries": 2,
-		"timeout": 0
-	}
-]
-```
-
-2. websites
-
-this folder contains all the json based test scripts for the websites.
-
-_EXECUTION_
-
-Executing seeny with the local folder method is fairly ea
 ```bash
 java -jar jar_file_name.jar
 ```
 
-**Parameter method**
+#### Parameter method
 
-seeny can also be started by forwarding parameters, if parameters are added to the execution, seeny will ignore any configuration files inside the config folder and will only execute the folder given via parameter.
+Seeny can also be started by forwarding parameters. If parameters are added to
+the execution, Seeny will ignore any configuration files inside the `/config`
+folder and will only execute the folder given as a parameter.
 
-_CONFIGURATION_
+The following parameters are available:
 
-in order to start seeny via parameters, the following values can be given to seeny
+1.  `d <driver_name>`: The driver to be used for the test (default is
+`chromedriver`). 
+2.  `w <website_file_name>`: The website to be tested (default is `test-website`).
+3.  `r <# retries>`: Number of times to re-run the test.
+4.  `--log-file-only`: Flag to tell Seeny to write only to the logfile and not
+to the console.
+5.  `--log-console-only`: Flag to tell Seeny to write only to the console and
+not to the logfile.
+6.  `--silent`: Flag to tell Seeny to be silent.
+7.  `-pp-padding <# paddingsize>`: Flag to define the padding for pretty print.
+8.  `-pp-width <# width>`: Flag to define the width for pretty print.
 
-_Parameters_
-1. d <driver_name> - the driver which shall be used for the test (default is chromedriver)
-2. w <website_file_name> - the website which shall be tested (default is test-website)
-3. r <# retries> - how often shall this test be rerun
-4. --log-file-only - flag to tell seeny to only write to the logfile and not to the console
-5. --log-console-only - flag to tell seeny to only write to the console and not to the logfile
-6. --silent - flag to tell seeny to be silent
-7. -pp-padding <# paddingsize> - flag to define the padding for pretty print
-8. -pp-width <# width> - flag to define the width for pretty print
+Available drivers:
 
-_Drivers available_
-1. chromedriver
-2. headless
+1. `chromedriver`
+2. `headless`
 
-_EXECUTION_
+**Execution:**
 
-Executing seeny with parameters can look like this
+Example of how to execute Seeny manually using parameters:
 
 ```bash
 java -jar build/libs/shadow-1.0-all.jar -d chromedriver -w cmnty.geeny.io
 ```
 
+## Elements of Seeny
 
-### Elements
+### `website.json`
 
-**Website.json**
+The main JSON object used by Seeny is `website.json`. You must name this file
+after the website to be tested (e.g., `geeny.io.json` for geeny.io).
 
-The main json object which is used for seeny, is the website.json.
-This file is named by the website it is supposed to be tested. (E.g 'geeny.io.json')
-
-_Structure:_
+#### Structure
 
 ```json
 {
-	"name": "Geeny IO",
-	"close": true,
-	"description": "Script to test the Geeny.io website",
-	"zap-proxy": {
-		"enabled": true,
-		"url": "localhost",
-		"port": 1337
-	},
-	"script": [{
-		"actionId": 1,
-		"actionType": "click",
-		"actionTarget": "link",
-		"id": "header_register_link"
-	}]
+  "name": "Geeny IO",
+  "close": true,
+  "description": "Script to test the Geeny.io website",
+  "zap-proxy": {
+    "enabled": true,
+    "url": "localhost",
+    "port": 1337
+  },
+  "script": [
+    {
+      "actionId": 1,
+      "actionType": "click",
+      "actionTarget": "link",
+      "id": "header_register_link"
+    }
+  ]
 }
 ```
 
-The structure of the website file is separated into 5 elements.
-1. name : the name of the webpage
-2. close : boolean if the window shall be closed after finishing the test
-3. description : the description for this test script
-4. zap-proxy : configuration to redirect the communication of selenium through a owasp zap proxy
-5. script : a list of script element which seeny shall go through to test the website
+The website object consists of five elements:
+
+1. `name`: The name of the webpage.
+2. `close`: Specifies if the window shall be closed after the test.
+3. `description`: A description of this test script.
+4. `zap-proxy`: Configuration for redirecting the communication of Selenium
+through an [OWASP Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy/wiki/Introduction).
+5. `script`: An array of script elements for Seeny to execute to test the
+website.
 
 **Basic**
 
@@ -559,6 +516,20 @@ __extract__
 }
 ```
 
+## Maintainers
+
+**Marco Bierbach** 
+
+-  [Email: marco@bierbach.biz](mailto:marco@bierbach.biz) 
+-  [Github](https://github.com/Gardosen)
+
+**Nils Balkow-Tychsen** 
+
+-  [Github](https://github.com/Nilsty)
+
+**Klemen Samsa** 
+
+-  [Email: klemen.samsa@gmail.com](mailto:klemen.samsa@gmail.com)
 
 ## License
 
